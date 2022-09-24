@@ -132,6 +132,6 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 app.listen(PORT, () => {
     client.login(process.env.PRODUCTION_TOKEN);
-    client.user?.setStatus('online');
+    client.user?.setPresence({ activities: [{ name: '(o・∇・o)' }], status: 'online' });
     console.log(`Our app is running on port ${PORT}`);
 });
