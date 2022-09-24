@@ -1,8 +1,9 @@
 import { InteractionType, InteractionResponseType, verifyKeyMiddleware } from 'discord-interactions';
-import { Intents, Client } from 'discord.js';
+import { Intents, Client, ActivityType } from 'discord.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import { ActivityTypes } from 'discord.js/typings/enums';
 
 dotenv.config();
 
@@ -132,6 +133,6 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 app.listen(PORT, () => {
     client.login(process.env.PRODUCTION_TOKEN);
-    client.user?.setPresence({ activities: [{ name: '(o・∇・o)' }], status: 'online' });
+    client.user?.setActivity('activity', { type: ActivityTypes.LISTENING });
     console.log(`Our app is running on port ${PORT}`);
 });
