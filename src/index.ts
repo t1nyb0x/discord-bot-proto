@@ -1,4 +1,5 @@
-import { InteractionType, InteractionResponseType, verifyKey, verifyKeyMiddleware } from 'discord-interactions';
+import { InteractionType, InteractionResponseType, verifyKeyMiddleware } from 'discord-interactions';
+import { Intents, Client } from 'discord.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
@@ -65,7 +66,7 @@ app.post('/interactions', verifyKeyMiddleware(publicKey), async (req, res) => {
     }
 });
 
-app.get('/register_commands', async (req, res) => {
+app.get('/register_commands', async (_, res) => {
     let slash_commands = [
         {
             name: 'yo',
@@ -93,11 +94,11 @@ app.get('/register_commands', async (req, res) => {
     }
 });
 
-app.get('/', async (req, res) => {
+app.get('/', async (_, res) => {
     return res.send('Follow documentation ');
 });
 
-// const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // client.on('ready', async () => {
 //     const data = [
@@ -129,8 +130,7 @@ app.get('/', async (req, res) => {
 //     }
 // });
 
-// client.login(process.env.PRODUCTION_TOKEN);
-
 app.listen(PORT, () => {
+    client.login(process.env.PRODUCTION_TOKEN);
     console.log(`Our app is running on port ${PORT}`);
 });
